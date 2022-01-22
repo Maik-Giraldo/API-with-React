@@ -2,14 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const Humidity = () => {
     const [humiditys, setHumiditys] = useState(null);
-    
-    const currentCity = {
-        city : ''
-    };
-    
-    const showCity = (city)=>{
-        currentCity.city = city;
-    };
+    const [currentCity, setCurrentCity] = useState(null);
 
     useEffect(async ()=>{
         const humiditys = [];
@@ -36,18 +29,22 @@ const Humidity = () => {
     }, []);
 
     return (
+        <>
         <div>
             {humiditys ?
                 (<div>
-                {currentCity.city == "Miami" ? (<h1>Miami: {humiditys[0]}%</h1>) : null}
-                {currentCity.city == "Orlando" ? (<h1>Orlando: {humiditys[1]}%</h1>) : null}
-                {currentCity.city == "New York" ?  (<h1>New York: {humiditys[2]}%</h1>) : null}
-                <button onClick={()=>showCity("Miami")} className='btn btn-primary'>Miami</button>
-                <button onClick={()=>showCity("Orlando")} className='btn btn-success'>Orlando</button>
-                <button onClick={()=>showCity("New York")} className='btn btn-danger'>New York</button>
+                <button onClick={()=>setCurrentCity("Miami " + humiditys[0])} className='btn btn-primary'>Miami</button>
+                <button onClick={()=>setCurrentCity("Orlando " + humiditys[1])} className='btn btn-success'>Orlando</button>
+                <button onClick={()=>setCurrentCity("New York " + humiditys[2])} className='btn btn-danger'>New York</button>
                 </div>)
             : null}
         </div>
+        <div>
+            {currentCity && (
+                <h1>{ currentCity }</h1>
+            )}
+        </div>
+        </>
     )
 }
 
