@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './humidity.css'
+import { changeValue } from '../utils/intermediary';
 
 const Humidity = () => {
     const [humiditys, setHumiditys] = useState(null);
     const [currentCity, setCurrentCity] = useState(null);
+
+    const changeMap = (map) => {
+        changeValue(map);
+    };
 
     useEffect(async ()=>{
         const humiditys = [];
@@ -23,44 +28,51 @@ const Humidity = () => {
         .then(res => res.json())
         .then(data => humiditys.push(data.main.humidity))
 
-        console.log(humiditys);
-
         setHumiditys(humiditys);
 
     }, []);
 
     return (
         <>
-        <br /><br />
-        <b><h1>Humidity</h1></b>
-        <div className='home'>
-            {humiditys ?
-                (<div className='row'>
-                    <div className="col-md-4">
-                    </div>
-                    <div className="col-md-4">
-                        <div className="row">
-                            <div className="col-md-4">
-                                <button onClick={()=>setCurrentCity("Miami humidity: " + humiditys[0] + "%")} className='btn btn-dark'>Miami</button>
-                            </div>
-                            <div className="col-md-4">
-                                <button onClick={()=>setCurrentCity("Orlando humidity: " + humiditys[1] + "%")} className='btn btn-dark'>Orlando</button>
-                            </div>
-                            <div className="col-md-4">
-                                <button onClick={()=>setCurrentCity("New York humidity: " + humiditys[2] + "%")} className='btn btn-dark'>New York</button>
+            <br /><br />
+            <b><h1>Humidity</h1></b>
+            <div className='home'>
+                {humiditys ?
+                    (<div className='row'>
+                        <div className="col-md-4">
+                        </div>
+                        <div className="col-md-4">
+                            <div className="row">
+                                <div className="col-md-4">
+                                    <button onClick={()=>{
+                                        setCurrentCity("Miami humidity: " + humiditys[0] + "%");
+                                        changeMap("Miami");
+                                    }} className='btn btn-dark'>Miami</button>
+                                </div>
+                                <div className="col-md-4">
+                                    <button onClick={()=>{
+                                        setCurrentCity("Orlando humidity: " + humiditys[1] + "%");
+                                        changeMap("Orlando");
+                                    }} className='btn btn-dark'>Orlando</button>
+                                </div>
+                                <div className="col-md-4">
+                                    <button onClick={()=>{
+                                        setCurrentCity("New York humidity: " + humiditys[2] + "%");
+                                        changeMap("NewYork");
+                                    }} className='btn btn-dark'>New York</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-md-4">
-                    </div>
-                </div>)
-            : null}
-        </div>
-        <div className='information'>
-            {currentCity && (
-                <h1>{ currentCity }</h1>
-            )}
-        </div>
+                        <div className="col-md-4">
+                        </div>
+                    </div>)
+                : null}
+            </div>
+            <div className='information'>
+                {currentCity && (
+                    <h1>{ currentCity }</h1>
+                )}
+            </div>
         </>
     )
 }
