@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './humidity.css'
 
 const Humidity = () => {
     const [humiditys, setHumiditys] = useState(null);
@@ -30,16 +31,32 @@ const Humidity = () => {
 
     return (
         <>
-        <div>
+        <br /><br />
+        <b><h1>Humidity</h1></b>
+        <div className='home'>
             {humiditys ?
-                (<div>
-                <button onClick={()=>setCurrentCity("Miami " + humiditys[0])} className='btn btn-primary'>Miami</button>
-                <button onClick={()=>setCurrentCity("Orlando " + humiditys[1])} className='btn btn-success'>Orlando</button>
-                <button onClick={()=>setCurrentCity("New York " + humiditys[2])} className='btn btn-danger'>New York</button>
+                (<div className='row'>
+                    <div className="col-md-4">
+                    </div>
+                    <div className="col-md-4">
+                        <div className="row">
+                            <div className="col-md-4">
+                                <button onClick={()=>setCurrentCity("Miami humidity: " + humiditys[0] + "%")} className='btn btn-dark'>Miami</button>
+                            </div>
+                            <div className="col-md-4">
+                                <button onClick={()=>setCurrentCity("Orlando humidity: " + humiditys[1] + "%")} className='btn btn-dark'>Orlando</button>
+                            </div>
+                            <div className="col-md-4">
+                                <button onClick={()=>setCurrentCity("New York humidity: " + humiditys[2] + "%")} className='btn btn-dark'>New York</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4">
+                    </div>
                 </div>)
             : null}
         </div>
-        <div>
+        <div className='information'>
             {currentCity && (
                 <h1>{ currentCity }</h1>
             )}
